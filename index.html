@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="id" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidayat — Linux System Administrator, DevSecOps & Red Teamer</title>
+    <meta name="description" content="Portfolio resmi Hidayat — Linux System Administrator, spesialis DevOps / DevSecOps, dan Cybersecurity / Bug Hunter / Red Teamer." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Background Ambient Glow -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <header class="navbar" id="navbar">
+      <div class="container nav-container">
+        <a href="#hero" class="brand"> <span class="brand-bracket">&lt;</span>Hidayat<span class="brand-accent">.sec</span><span class="brand-bracket">/&gt;</span> </a>
+
+        <nav class="nav-links" id="navLinks">
+          <a href="#about" class="nav-link"> Keahlian</a>
+          <a href="#skills" class="nav-link">Tech Stack</a>
+          <a href="#projects" class="nav-link">Proyek & Riset</a>
+          <a href="#experience" class="nav-link">Pengalaman</a>
+          <a href="#contact" class="nav-link">Kontak</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="Ganti Tema Dark/Light" title="Ganti Tema (Dark / Light)">
+            <!-- Sun icon (shown in dark mode to switch to light) -->
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon icon (shown in light mode to switch to dark) -->
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-label" id="themeLabel">Dark</span>
+          </button>
+
+          <a href="#contact" class="btn btn-primary btn-sm">Hire / Kolaborasi</a>
+
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Buka Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero section" id="hero">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <div class="status-badge">
+              <span class="status-dot"></span>
+              <span>Available for Linux System Administration, DevSecOps &amp; Security Projects</span>
+            </div>
+
+            <h1 class="hero-title">
+              Membangun Sistem Tangguh,<br />
+              <span class="gradient-text">Mengamankan Infrastruktur</span>
+            </h1>
+
+            <div class="hero-role-wrapper">
+              <span class="mono-prefix">$ whoami &gt;</span>
+              <span class="typing-text" id="typingText">Linux System Administrator</span>
+              <span class="cursor">|</span>
+            </div>
+
+            <p class="hero-description">
+              Saya berfokus pada administrasi <strong>Linux Server</strong>, otomatisasi <strong>DevOps / DevSecOps</strong>, serta <strong>Cybersecurity, Bug Hunting &amp; Red Teaming</strong> untuk mengelola, mengotomatisasi, dan
+              mengamankan infrastruktur produksi.
+            </p>
+
+            <div class="hero-cta">
+              <a href="#projects" class="btn btn-primary">
+                <span>Lihat Proyek &amp; Riset</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <button class="btn btn-outline" id="downloadCvBtn" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Cetak / Simpan CV (PDF)</span>
+              </button>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-item">
+                <span class="stat-number">4-in-1</span>
+                <span class="stat-label">Core Disciplines</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="stat-number">99.9%</span>
+                <span class="stat-label">CI/CD &amp; Cloud Uptime</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="stat-number">OWASP</span>
+                <span class="stat-label">Web, API &amp; Cloud Hardened</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Terminal Card -->
+          <div class="hero-terminal-wrapper">
+            <div class="terminal-window">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <div class="terminal-title">hidayat@secops-workstation: ~ (interactive)</div>
+                <span class="terminal-hint">Ketik <code>help</code></span>
+              </div>
+              <div class="terminal-body" id="terminalBody">
+                <div class="term-line"><span class="term-prompt">hidayat@secops:~$</span> <span class="term-cmd">./profile --summary</span></div>
+                <div class="term-output">
+                  <div><span class="term-key">[ROLE 01]</span> Linux System Administrator (Linux, Bash, Ansible, Nginx)</div>
+                  <div><span class="term-key">[ROLE 02]</span> DevOps &amp; DevSecOps (Docker, K8s, Terraform, CI/CD)</div>
+                  <div><span class="term-key">[ROLE 03]</span> Bug Hunter &amp; Red Teamer (Web, API, Cloud, Active Directory)</div>
+                  <div><span class="term-key">[STATUS]</span> <span class="term-success">All security gates passed ✓</span></div>
+                </div>
+                <div class="term-line term-muted">Tip: Ketik perintah di bawah (<code>help</code>, <code>skills</code>, <code>projects</code>, <code>theme</code>, <code>contact</code>, <code>clear</code>)</div>
+              </div>
+              <form class="terminal-input-row" id="terminalForm">
+                <span class="term-prompt">hidayat@secops:~$</span>
+                <input type="text" id="terminalInput" class="terminal-input" placeholder="Ketik 'help' lalu tekan Enter..." autocomplete="off" spellcheck="false" aria-label="Input Terminal Interaktif" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 Core Pillars Section -->
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">// 01. EMPAT PILAR KEAHLIAN</span>
+            <h2 class="section-title">Sinergi Development, Operations &amp; Security</h2>
+            <p class="section-subtitle">Bukan sekadar menulis kode atau mencari celah, tetapi mengintegrasikan keamanan sejak baris kode pertama hingga orkestrasi infrastruktur produksi.</p>
+          </div>
+
+          <div class="pillars-grid">
+            <!-- Pillar 1 -->
+            <article class="pillar-card">
+              <div class="pillar-icon pillar-icon-sec">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </div>
+              <span class="pillar-badge">Offensive Security</span>
+              <h3>Cybersecurity, Bug Hunter &amp; Red Teamer</h3>
+              <p>Pengujian penetrasi mendalam pada aplikasi Web, REST/GraphQL API, Mobile APK, serta infrastruktur Cloud &amp; IAM untuk menemukan celah kritis sebelum dieksploitasi pihak luar.</p>
+              <ul class="pillar-list">
+                <li>OWASP Top 10 &amp; API Security Audit (BOLA/IDOR, SSRF, RCE)</li>
+                <li>Red Team Operations &amp; Attack Surface Reconnaissance</li>
+                <li>Triase Kerentanan, Validasi PoC &amp; Remediasi Kode</li>
+              </ul>
+            </article>
+
+            <!-- Pillar 2 -->
+            <article class="pillar-card">
+              <div class="pillar-icon pillar-icon-devsec">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+              <span class="pillar-badge">Automated Security</span>
+              <h3>DevSecOps Architecture</h3>
+              <p>Menanamkan gerbang keamanan otomatis (Shift-Left Security) langsung ke dalam pipeline CI/CD tanpa menghambat kecepatan rilis tim engineering.</p>
+              <ul class="pillar-list">
+                <li>SAST, DAST, SCA &amp; Secret Scanning Otomatis di CI/CD</li>
+                <li>Container &amp; Kubernetes Hardening (RBAC, Pod Security, Trivy)</li>
+                <li>Supply Chain Security, SBOM &amp; Policy-as-Code (OPA)</li>
+              </ul>
+            </article>
+
+            <!-- Pillar 3 -->
+            <article class="pillar-card">
+              <div class="pillar-icon pillar-icon-devops">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              </div>
+              <span class="pillar-badge">Cloud &amp; Reliability</span>
+              <h3>DevOps &amp; Cloud Infrastructure</h3>
+              <p>Otomatisasi infrastruktur yang reprodusibel, scalable, dan memiliki observabilitas penuh untuk memastikan ketersediaan tinggi (High Availability).</p>
+              <ul class="pillar-list">
+                <li>Infrastructure as Code (Terraform, Ansible) &amp; GitOps (ArgoCD)</li>
+                <li>Orkestrasi Docker &amp; Kubernetes Multi-Environment</li>
+                <li>Monitoring, Logging &amp; Alerting (Prometheus, Grafana, ELK)</li>
+              </ul>
+            </article>
+
+            <!-- Pillar 4 -->
+            <article class="pillar-card">
+              <div class="pillar-icon pillar-icon-sysadmin">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <span class="pillar-badge">Linux Administration</span>
+              <h3>Linux System Administrator</h3>
+              <p>Mengelola server Linux yang andal dan aman, mengotomatisasi pekerjaan rutin, serta menjaga layanan dan infrastruktur tetap tersedia.</p>
+              <ul class="pillar-list">
+                <li>Administrasi Linux, user &amp; permission, systemd, dan shell scripting</li>
+                <li>Server web dan jaringan (Nginx, DNS, firewall, TLS)</li>
+                <li>Linux hardening, backup, monitoring, dan otomasi Ansible</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Stack & Skills Matrix -->
+      <section class="section section-alt" id="skills">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">// 02. TECH STACK &amp; ARSENAL</span>
+            <h2 class="section-title">Peralatan &amp; Teknologi</h2>
+            <p class="section-subtitle">Filter berdasarkan domain untuk melihat teknologi, framework, dan tools yang saya gunakan sehari-hari.</p>
+          </div>
+
+          <div class="filter-tabs" id="skillTabs" role="tablist">
+            <button class="tab-btn active" data-filter="all" role="tab">Semua Domain</button>
+            <button class="tab-btn" data-filter="security" role="tab">Cybersecurity &amp; Red Team</button>
+            <button class="tab-btn" data-filter="devops" role="tab">DevOps &amp; DevSecOps</button>
+            <button class="tab-btn" data-filter="sysadmin" role="tab">Linux System Administration</button>
+          </div>
+
+          <div class="skills-grid" id="skillsGrid">
+            <!-- Security Skills -->
+            <div class="skill-card" data-category="security">
+              <div class="skill-top">
+                <span class="skill-name">Web &amp; API Pentesting (Burp Suite Pro, Caido)</span>
+                <span class="skill-level">Expert</span>
+              </div>
+              <p class="skill-desc">Eksploitasi &amp; audit BOLA/IDOR, SSRF, SQLi, XSS, JWT/OAuth flaws, Race Conditions.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+            </div>
+
+            <div class="skill-card" data-category="security">
+              <div class="skill-top">
+                <span class="skill-name">Reconnaissance &amp; ASM Automation</span>
+                <span class="skill-level">Expert</span>
+              </div>
+              <p class="skill-desc">Subfinder, httpx, Nuclei, Katana, ffuf, custom scripting untuk pemetaan permukaan serangan.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 94%"></div></div>
+            </div>
+
+            <div class="skill-card" data-category="security">
+              <div class="skill-top">
+                <span class="skill-name">Cloud &amp; Mobile Red Teaming</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <p class="skill-desc">AWS/GCP/Azure IAM privilege analysis, K8s cluster security, JADX &amp; Frida APK analysis.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+            </div>
+
+            <!-- DevOps & DevSecOps Skills -->
+            <div class="skill-card" data-category="devops">
+              <div class="skill-top">
+                <span class="skill-name">CI/CD &amp; Shift-Left DevSecOps</span>
+                <span class="skill-level">Expert</span>
+              </div>
+              <p class="skill-desc">GitHub Actions, GitLab CI, Semgrep SAST, Trivy, Gitleaks, OWASP Dependency-Check.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+            </div>
+
+            <div class="skill-card" data-category="devops">
+              <div class="skill-top">
+                <span class="skill-name">Containers &amp; Kubernetes</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <p class="skill-desc">Docker multi-stage builds, Kubernetes, Helm, NetworkPolicies, ArgoCD GitOps.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+            </div>
+
+            <div class="skill-card" data-category="devops">
+              <div class="skill-top">
+                <span class="skill-name">IaC, Linux &amp; Observability</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <p class="skill-desc">Terraform, Ansible, Linux Hardening, Nginx/Envoy, Prometheus, Grafana &amp; Loki.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
+            </div>
+
+            <!-- Linux System Administration Skills -->
+            <div class="skill-card" data-category="sysadmin">
+              <div class="skill-top">
+                <span class="skill-name">Linux Server Administration</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <p class="skill-desc">Manajemen user dan permission, systemd, paket, log, storage, backup, serta Linux hardening.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
+            </div>
+
+            <div class="skill-card" data-category="sysadmin">
+              <div class="skill-top">
+                <span class="skill-name">Shell Scripting &amp; Configuration Automation</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <p class="skill-desc">Bash, Ansible, dan Terraform untuk otomasi provisioning serta konfigurasi server.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+            </div>
+
+            <div class="skill-card" data-category="sysadmin">
+              <div class="skill-top">
+                <span class="skill-name">Server Networking &amp; Observability</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <p class="skill-desc">Nginx, DNS, firewall, TLS, Prometheus, Grafana, dan Loki untuk layanan yang terpantau.</p>
+              <div class="skill-bar"><div class="skill-progress" style="width: 89%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Projects & Research -->
+      <section class="section" id="projects">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">// 03. PORTOFOLIO PROYEK &amp; RISET</span>
+            <h2 class="section-title">Karya Terpilih &amp; Studi Kasus</h2>
+            <p class="section-subtitle">Kombinasi proyek rekayasa perangkat lunak full-stack, pipeline DevSecOps otomatis, dan riset keamanan siber.</p>
+          </div>
+
+          <div class="filter-tabs" id="projectTabs" role="tablist">
+            <button class="tab-btn active" data-project-filter="all" role="tab">Semua</button>
+            <button class="tab-btn" data-project-filter="security" role="tab">Cybersecurity &amp; Red Team</button>
+            <button class="tab-btn" data-project-filter="devsecops" role="tab">DevOps &amp; DevSecOps</button>
+            <button class="tab-btn" data-project-filter="fullstack" role="tab">Full-Stack Web</button>
+          </div>
+
+          <div class="projects-grid" id="projectsGrid">
+            <!-- Project 1 -->
+            <article class="project-card" data-project-category="devsecops">
+              <div class="project-card-header">
+                <span class="project-type">DevSecOps Pipeline</span>
+                <span class="project-status status-live">Production Ready</span>
+              </div>
+              <h3 class="project-title">Zero-Trust CI/CD &amp; Automated Security Gate</h3>
+              <p class="project-description">
+                Arsitektur pipeline CI/CD end-to-end yang secara otomatis menjalankan SAST (Semgrep), secret detection (Gitleaks), SCA dependency audit, container image scanning (Trivy), dan menandatangani image sebelum di-deploy ke cluster
+                Kubernetes melalui ArgoCD.
+              </p>
+              <div class="project-metrics">
+                <div><strong>-78%</strong><span>Waktu Triase Celah</span></div>
+                <div><strong>100%</strong><span>Signed Containers</span></div>
+              </div>
+              <div class="project-tags">
+                <span>GitHub Actions</span>
+                <span>Kubernetes</span>
+                <span>Trivy</span>
+                <span>Semgrep</span>
+                <span>Terraform</span>
+              </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card" data-project-category="security">
+              <div class="project-card-header">
+                <span class="project-type">Red Team &amp; Bug Hunting</span>
+                <span class="project-status status-research">Offensive Tooling</span>
+              </div>
+              <h3 class="project-title">Attack Surface Recon &amp; API Logic Auditor</h3>
+              <p class="project-description">
+                Framework orkestrasi rekognisi dan audit keamanan API yang memetakan subdomain aktif, mengekstrak endpoint tersembunyi dari bundle JavaScript SPA, dan menguji celah BOLA/IDOR, misconfiguration CORS, serta kebocoran
+                kredensial secara terukur.
+              </p>
+              <div class="project-metrics">
+                <div><strong>OWASP API</strong><span>Top 10 Coverage</span></div>
+                <div><strong>CVSS v3.1</strong><span>Automated Report</span></div>
+              </div>
+              <div class="project-tags">
+                <span>Python</span>
+                <span>Go</span>
+                <span>REST / GraphQL</span>
+                <span>AST Taint Analysis</span>
+                <span>SecOps</span>
+              </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-card" data-project-category="fullstack">
+              <div class="project-card-header">
+                <span class="project-type">Full-Stack SaaS Platform</span>
+                <span class="project-status status-live">Full-Stack Web</span>
+              </div>
+              <h3 class="project-title">SentinelOps — Vulnerability &amp; Asset Management Dashboard</h3>
+              <p class="project-description">
+                Aplikasi web full-stack real-time untuk memantau inventaris aset cloud, melacak siklus hidup temuan bug bounty / pentest, lengkap dengan RBAC multi-tenant, autentikasi OAuth2 + MFA, audit log terenkripsi, dan laporan
+                eksekutif otomatis.
+              </p>
+              <div class="project-metrics">
+                <div><strong>&lt;120ms</strong><span>API Latency P95</span></div>
+                <div><strong>95%+</strong><span>Vitest Coverage</span></div>
+              </div>
+              <div class="project-tags">
+                <span>React</span>
+                <span>TypeScript</span>
+                <span>Node.js</span>
+                <span>PostgreSQL</span>
+                <span>Redis</span>
+              </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="project-card" data-project-category="devsecops">
+              <div class="project-card-header">
+                <span class="project-type">Cloud Infrastructure</span>
+                <span class="project-status status-live">IaC &amp; Hardening</span>
+              </div>
+              <h3 class="project-title">Hardened Multi-Region Kubernetes &amp; Observability Stack</h3>
+              <p class="project-description">
+                Provisioning infrastruktur cloud menggunakan modul Terraform yang telah di-hardening sesuai CIS Benchmark, dilengkapi mTLS antar-service, isolasi network policy, serta monitoring terpusat dengan Prometheus, Grafana, dan
+                alert otomatis ke Slack/Telegram.
+              </p>
+              <div class="project-metrics">
+                <div><strong>99.95%</strong><span>Uptime SLA</span></div>
+                <div><strong>CIS L2</strong><span>Hardened Nodes</span></div>
+              </div>
+              <div class="project-tags">
+                <span>Terraform</span>
+                <span>Docker</span>
+                <span>Helm</span>
+                <span>Prometheus</span>
+                <span>Grafana</span>
+              </div>
+            </article>
+
+            <!-- Project 5 -->
+            <article class="project-card" data-project-category="security">
+              <div class="project-card-header">
+                <span class="project-type">Security Research</span>
+                <span class="project-status status-research">Case Study</span>
+              </div>
+              <h3 class="project-title">Modern Auth, SSO &amp; Race Condition Lab</h3>
+              <p class="project-description">
+                Lingkungan laboratorium dan dokumentasi riset keamanan yang mendemonstrasikan vektor serangan modern (HTTP/2 Single-Packet Race Condition, JWT Key Confusion, OAuth Redirect Hijacking) beserta kode patch remediasi untuk
+                developer.
+              </p>
+              <div class="project-metrics">
+                <div><strong>15+</strong><span>Skenario Eksploit &amp; Patch</span></div>
+                <div><strong>100%</strong><span>Reproducible PoC</span></div>
+              </div>
+              <div class="project-tags">
+                <span>OAuth2 / OIDC</span>
+                <span>JWT Crypto</span>
+                <span>HTTP/2 Race</span>
+                <span>Secure Coding</span>
+              </div>
+            </article>
+
+            <!-- Project 6 -->
+            <article class="project-card" data-project-category="fullstack">
+              <div class="project-card-header">
+                <span class="project-type">High-Performance API</span>
+                <span class="project-status status-live">Backend Architecture</span>
+              </div>
+              <h3 class="project-title">Distributed Payment &amp; Webhook Processing Engine</h3>
+              <p class="project-description">
+                Layanan backend berkecepatan tinggi dengan perlindungan idempotency-key anti double-spend, verifikasi tanda tangan HMAC webhook, distributed locking dengan Redis, serta antrean pekerja asinkron yang tahan terhadap lonjakan
+                trafik.
+              </p>
+              <div class="project-metrics">
+                <div><strong>Zero</strong><span>Race / Double-Spend</span></div>
+                <div><strong>10k+ req/s</strong><span>Throughput</span></div>
+              </div>
+              <div class="project-tags">
+                <span>Go / Node.js</span>
+                <span>PostgreSQL</span>
+                <span>Redis Lock</span>
+                <span>Docker</span>
+                <span>REST &amp; gRPC</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience & Methodology Timeline -->
+      <section class="section section-alt" id="experience">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">// 04. REKAM JEJAK &amp; METODOLOGI</span>
+            <h2 class="section-title">Pengalaman &amp; Fokus Profesional</h2>
+            <p class="section-subtitle">Perjalanan lintas disiplin yang menghubungkan pengembangan produk, reliabilitas infrastruktur, dan pengujian keamanan ofensif.</p>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="timeline-meta">
+                  <span class="timeline-period">Saat Ini</span>
+                  <span class="timeline-role-badge">DevSecOps &amp; Red Team Specialist</span>
+                </div>
+                <h3>Lead DevSecOps, Bug Hunter &amp; Security Researcher</h3>
+                <p>
+                  Memimpin audit keamanan aplikasi web/API/cloud, melakukan pengujian penetrasi berorientasi dampak nyata (Red Teaming &amp; Bug Bounty), serta mengotomatisasi pipeline keamanan CI/CD untuk mencegah regresi kerentanan di
+                  lingkungan produksi.
+                </p>
+                <div class="timeline-highlights">
+                  <span>Attack Surface Mapping</span>
+                  <span>CI/CD Security Gates</span>
+                  <span>PoC Validation &amp; Patching</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="timeline-meta">
+                  <span class="timeline-period">Sebelumnya</span>
+                  <span class="timeline-role-badge">DevOps &amp; Cloud Engineer</span>
+                </div>
+                <h3>DevOps &amp; Infrastructure Automation Engineer</h3>
+                <p>
+                  Merancang dan mengelola infrastruktur berbasis container (Docker &amp; Kubernetes), menyusun Infrastructure-as-Code dengan Terraform, mengoptimalkan waktu build deployment hingga 60% lebih cepat, serta membangun sistem
+                  observabilitas terpusat.
+                </p>
+                <div class="timeline-highlights">
+                  <span>Kubernetes &amp; Docker</span>
+                  <span>Terraform IaC</span>
+                  <span>Zero-Downtime Deployment</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="timeline-meta">
+                  <span class="timeline-period">Fondasi Engineering</span>
+                  <span class="timeline-role-badge">Linux System Administrator</span>
+                </div>
+                <h3>Linux System Administrator</h3>
+                <p>Mengelola server Linux dan layanan web, mengotomatisasi konfigurasi, serta menerapkan praktik keamanan dan pemantauan untuk menjaga stabilitas infrastruktur.</p>
+                <div class="timeline-highlights">
+                  <span>Linux &amp; Bash</span>
+                  <span>Nginx &amp; Networking</span>
+                  <span>Ansible &amp; Monitoring</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="section" id="contact">
+        <div class="container">
+          <div class="contact-card">
+            <div class="contact-info">
+              <span class="section-tag">// 05. HUBUNGI SAYA</span>
+              <h2 class="section-title">Siap Membangun atau Mengamankan Sistem Anda?</h2>
+              <p class="contact-desc">Baik untuk administrasi <strong>Linux Server</strong>, otomasi <strong>DevOps / DevSecOps</strong>, maupun <strong>Security Audit / Pentesting / Red Team Engagement</strong> — mari berdiskusi.</p>
+
+              <div class="contact-methods">
+                <div class="contact-item">
+                  <div class="contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="contact-label">Email Langsung</span>
+                    <div class="contact-value-row">
+                      <a href="mailto:hidayat@secops.dev" id="emailAddress" class="contact-link">hidayat@secops.dev</a>
+                      <button class="copy-btn" id="copyEmailBtn" type="button" title="Salin Email">Salin</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="contact-item">
+                  <div class="contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="contact-label">Profil &amp; Repositori</span>
+                    <div class="social-links">
+                      <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+                      <span>•</span>
+                      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                      <span>•</span>
+                      <a href="https://hackerone.com" target="_blank" rel="noopener noreferrer">HackerOne / Bugcrowd</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+              <div class="form-group">
+                <label for="senderName">Nama Lengkap</label>
+                <input type="text" id="senderName" name="senderName" required placeholder="Contoh: Budi Santoso" />
+              </div>
+
+              <div class="form-group">
+                <label for="senderEmail">Alamat Email</label>
+                <input type="email" id="senderEmail" name="senderEmail" required placeholder="nama@perusahaan.com" />
+              </div>
+
+              <div class="form-group">
+                <label for="serviceType">Kebutuhan Kolaborasi</label>
+                <select id="serviceType" name="serviceType">
+                  <option value="Security Audit / Pentesting / Bug Bounty">Security Audit / Pentesting / Red Team</option>
+                  <option value="DevOps & DevSecOps Automation">DevOps &amp; DevSecOps CI/CD Automation</option>
+                  <option value="Linux System Administration">Linux System Administration</option>
+                  <option value="Full-Time / Contract Opportunity">Full-Time / Contract Role</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="senderMessage">Pesan / Detail Proyek</label>
+                <textarea id="senderMessage" name="senderMessage" rows="4" required placeholder="Ceritakan singkat tentang proyek, ruang lingkup sistem, atau jadwal yang diinginkan..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <span>Kirim Pesan</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-container">
+        <div class="footer-left">
+          <span class="brand-bracket">&lt;</span>Hidayat<span class="brand-accent">.sec</span><span class="brand-bracket">/&gt;</span>
+          <p>Linux System Administration • DevOps • DevSecOps • Cybersecurity / Red Team</p>
+        </div>
+        <div class="footer-right">
+          <p>&copy; <span id="currentYear">2026</span> Hidayat. Dibuat dengan HTML5, CSS3 &amp; Vanilla JS.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
