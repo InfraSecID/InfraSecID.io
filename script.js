@@ -16,6 +16,27 @@ document.addEventListener("DOMContentLoaded", () => {
     currentYearEl.textContent = new Date().getFullYear();
   }
 
+  // Update the profile links in the contact section.
+  const socialLinks = document.querySelector(".social-links");
+  if (socialLinks) {
+    const githubLink = Array.from(socialLinks.querySelectorAll("a")).find(
+      (link) => link.textContent.trim() === "GitHub"
+    );
+    if (githubLink) {
+      githubLink.href = "https://github.com/InfraSecID/";
+    }
+
+    const youtubeLink = document.createElement("a");
+    youtubeLink.href = "https://www.youtube.com/@infrasecid";
+    youtubeLink.target = "_blank";
+    youtubeLink.rel = "noopener noreferrer";
+    youtubeLink.textContent = "YouTube";
+
+    const separator = document.createElement("span");
+    separator.textContent = "•";
+    socialLinks.append(separator, youtubeLink);
+  }
+
   // --------------------------------------------------------------------------
   // 1. Toast Notification Helper
   // --------------------------------------------------------------------------
