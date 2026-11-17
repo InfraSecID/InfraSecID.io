@@ -12,6 +12,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const toastEl = document.getElementById("toast");
   const currentYearEl = document.getElementById("currentYear");
 
+  // Show social profiles as recognizable, accessible platform icons.
+  const socialLinks = document.querySelector(".social-links");
+  if (socialLinks) {
+    const iconPaths = {
+      github: '<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>',
+      linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>',
+      hackerone: '<path d="M7 3h4v18H7zM13 3h4v18h-4z"></path>',
+      medium: '<path d="M2 6.5 7.5 4l5.5 2.5v11L7.5 20 2 17.5z"></path><path d="M14 6.5 18 4v16l-4-2.5zM19 6l3-2v16l-3-2z"></path>',
+      youtube: '<path d="M22 12s0-3.5-.45-5.15a2.9 2.9 0 0 0-2.05-2.05C17.85 4.35 12 4.35 12 4.35s-5.85 0-7.5.45a2.9 2.9 0 0 0-2.05 2.05C2 8.5 2 12 2 12s0 3.5.45 5.15a2.9 2.9 0 0 0 2.05 2.05c1.65.45 7.5.45 7.5.45s5.85 0 7.5-.45a2.9 2.9 0 0 0 2.05-2.05C22 15.5 22 12 22 12z"></path><path d="m10 15 5-3-5-3z"></path>'
+    };
+    const profiles = [
+      { name: "GitHub", url: "https://github.com/InfraSecID", icon: "github" },
+      { name: "LinkedIn", url: "https://linkedin.com", icon: "linkedin" },
+      { name: "HackerOne / Bugcrowd", url: "https://hackerone.com", icon: "hackerone" },
+      { name: "Medium", url: "https://medium.com/@izumy", icon: "medium" },
+      { name: "YouTube", url: "https://www.youtube.com/@infrasecid", icon: "youtube" }
+    ];
+    socialLinks.replaceChildren();
+    socialLinks.style.alignItems = "center";
+    profiles.forEach(({ name, url, icon }, index) => {
+      if (index) {
+        const separator = document.createElement("span");
+        separator.setAttribute("aria-hidden", "true");
+        separator.textContent = "•";
+        socialLinks.appendChild(separator);
+      }
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.setAttribute("aria-label", name);
+      link.title = name;
+      link.style.display = "inline-flex";
+      link.style.alignItems = "center";
+      link.style.justifyContent = "center";
+      link.style.width = "1.25rem";
+      link.style.height = "1.5rem";
+      link.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[icon]}</svg>`;
+      socialLinks.appendChild(link);
+    });
+  }
+
   if (currentYearEl) {
     currentYearEl.textContent = new Date().getFullYear();
   }
