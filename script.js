@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toastEl = document.getElementById("toast");
   const currentYearEl = document.getElementById("currentYear");
 
-  // Render social profiles as text links and show the GitHub profile avatar.
+  // Render social profiles as consistently sized text links and show the GitHub profile avatar.
   const socialLinks = document.querySelector(".social-links");
   if (socialLinks) {
     const profiles = [
@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.textContent = name;
+      link.style.fontSize = "1rem";
+      link.style.fontWeight = "500";
       socialLinks.appendChild(link);
     });
 
