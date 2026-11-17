@@ -55,9 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (currentYearEl) {
-    currentYearEl.textContent = new Date().getFullYear();
-  }
+  if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
 
   // One CTA element serves desktop and mobile, avoiding duplicate links.
   const mobileCta = navLinks?.querySelector(".nav-mobile-cta");
@@ -68,8 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateHireLink() {
     if (!hireLink) return;
     if (mobileBreakpoint.matches) {
-      // The existing responsive stylesheet hides this link on mobile; inline
-      // styles keep the single CTA visible in the header without overflowing it.
       hireLink.style.display = "inline-flex";
       hireLink.style.padding = "0.4rem 0.55rem";
       hireLink.style.fontSize = "clamp(0.65rem, 2.7vw, 0.78rem)";
@@ -81,243 +77,127 @@ document.addEventListener("DOMContentLoaded", () => {
       hireLink.style.removeProperty("white-space");
     }
   }
-
   updateHireLink();
-  if (mobileBreakpoint.addEventListener) {
-    mobileBreakpoint.addEventListener("change", updateHireLink);
-  } else {
-    // Compatibility with older Android WebViews.
-    mobileBreakpoint.addListener(updateHireLink);
-  }
+  if (mobileBreakpoint.addEventListener) mobileBreakpoint.addEventListener("change", updateHireLink);
+  else mobileBreakpoint.addListener(updateHireLink);
 
-  // --------------------------------------------------------------------------
-  // 1. Toast Notification Helper
-  // --------------------------------------------------------------------------
+  // Toast notification helper.
   let toastTimeout;
   function showToast(message) {
     if (!toastEl) return;
     toastEl.textContent = message;
     toastEl.classList.add("show");
     clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-      toastEl.classList.remove("show");
-    }, 3200);
+    toastTimeout = setTimeout(() => toastEl.classList.remove("show"), 3200);
   }
 
-  // --------------------------------------------------------------------------
-  // 2. Dark / Light Theme Toggle (with localStorage persistence)
-  // --------------------------------------------------------------------------
+  // Dark / Light theme toggle.
   function applyTheme(theme) {
     const safeTheme = theme === "light" ? "light" : "dark";
     htmlEl.setAttribute("data-theme", safeTheme);
-    try {
-      localStorage.setItem("portfolio_theme", safeTheme);
-    } catch {
-      // The theme still works when storage is disabled or unavailable.
-    }
-    if (themeLabel) {
-      themeLabel.textContent = safeTheme === "dark" ? "Dark" : "Light";
-    }
+    try { localStorage.setItem("portfolio_theme", safeTheme); } catch { /* Storage may be unavailable. */ }
+    if (themeLabel) themeLabel.textContent = safeTheme === "dark" ? "Dark" : "Light";
   }
-
   let savedTheme = "dark";
-  try {
-    savedTheme = localStorage.getItem("portfolio_theme") === "light" ? "light" : "dark";
-  } catch {
-    // Use the default theme in private browsing or restricted WebViews.
-  }
+  try { savedTheme = localStorage.getItem("portfolio_theme") === "light" ? "light" : "dark"; } catch { /* Use default theme. */ }
   applyTheme(savedTheme);
-
   function toggleTheme() {
-    const current = htmlEl.getAttribute("data-theme") === "light" ? "light" : "dark";
-    const next = current === "dark" ? "light" : "dark";
+    const next = htmlEl.getAttribute("data-theme") === "light" ? "dark" : "light";
     applyTheme(next);
     showToast(`Tema diubah ke mode ${next === "dark" ? "Dark (Gelap)" : "Light (Terang)"}`);
   }
+  themeToggleBtn?.addEventListener("click", toggleTheme);
 
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", toggleTheme);
-  }
-
-  // --------------------------------------------------------------------------
-  // 3. Mobile Navigation Menu
-  // --------------------------------------------------------------------------
+  // Mobile navigation menu.
   if (mobileMenuBtn && navLinks) {
     mobileMenuBtn.addEventListener("click", () => {
       const isOpen = navLinks.classList.toggle("open");
       mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
       mobileMenuBtn.setAttribute("aria-label", isOpen ? "Tutup Menu" : "Buka Menu");
     });
-
     function closeMobileMenu() {
       navLinks.classList.remove("open");
       mobileMenuBtn.setAttribute("aria-expanded", "false");
       mobileMenuBtn.setAttribute("aria-label", "Buka Menu");
     }
-
-    navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMobileMenu);
-    });
-
+    navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMobileMenu));
     hireLink?.addEventListener("click", closeMobileMenu);
-    mobileBreakpoint.addEventListener?.("change", () => {
-      if (!mobileBreakpoint.matches) closeMobileMenu();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMobileMenu();
-    });
+    mobileBreakpoint.addEventListener?.("change", () => { if (!mobileBreakpoint.matches) closeMobileMenu(); });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMobileMenu(); });
   }
 
-  // --------------------------------------------------------------------------
-  // 4. Multi-Role Typing Effect
-  // --------------------------------------------------------------------------
-  const roles = [
-    "Linux System Administrator",
-    "DevSecOps Engineer",
-    "Cybersecurity / Bug Hunter",
-    "Red Team Operator",
-    "DevOps & Cloud Architect"
-  ];
-
+  // Multi-role typing effect.
+  const roles = ["Linux System Administrator", "DevSecOps Engineer", "Cybersecurity / Bug Hunter", "Red Team Operator", "DevOps & Cloud Architect"];
   if (typingTextEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     let roleIdx = 0;
     let charIdx = 0;
     let isDeleting = false;
-
     function runTypingLoop() {
       const currentRole = roles[roleIdx];
-
-      if (isDeleting) {
-        charIdx--;
-      } else {
-        charIdx++;
-      }
+      charIdx += isDeleting ? -1 : 1;
       typingTextEl.textContent = currentRole.substring(0, charIdx);
-
       let delay = isDeleting ? 40 : 85;
-      if (!isDeleting && charIdx === currentRole.length) {
-        delay = 1900;
-        isDeleting = true;
-      } else if (isDeleting && charIdx === 0) {
-        isDeleting = false;
-        roleIdx = (roleIdx + 1) % roles.length;
-        delay = 350;
-      }
+      if (!isDeleting && charIdx === currentRole.length) { delay = 1900; isDeleting = true; }
+      else if (isDeleting && charIdx === 0) { isDeleting = false; roleIdx = (roleIdx + 1) % roles.length; delay = 350; }
       setTimeout(runTypingLoop, delay);
     }
-
     runTypingLoop();
   }
 
-  // --------------------------------------------------------------------------
-  // 5. Interactive Hero Terminal
-  // --------------------------------------------------------------------------
+  // Interactive hero terminal.
   const terminalForm = document.getElementById("terminalForm");
   const terminalInput = document.getElementById("terminalInput");
   const terminalBody = document.getElementById("terminalBody");
   const MAX_TERMINAL_ROWS = 100;
-
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[ch]);
+  }
   function appendTerminalLine(cmd, htmlOutput) {
     if (!terminalBody) return;
-
     const cmdRow = document.createElement("div");
     cmdRow.className = "term-line";
     cmdRow.innerHTML = `<span class="term-prompt">hidayat@secops:~$</span> <span class="term-cmd">${escapeHtml(cmd)}</span>`;
     terminalBody.appendChild(cmdRow);
-
     if (htmlOutput) {
       const outRow = document.createElement("div");
       outRow.className = "term-output";
       outRow.innerHTML = htmlOutput;
       terminalBody.appendChild(outRow);
     }
-
-    while (terminalBody.children.length > MAX_TERMINAL_ROWS) {
-      terminalBody.firstElementChild.remove();
-    }
+    while (terminalBody.children.length > MAX_TERMINAL_ROWS) terminalBody.firstElementChild.remove();
     terminalBody.scrollTop = terminalBody.scrollHeight;
   }
-
-  function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, (ch) => {
-      const map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" };
-      return map[ch];
-    });
-  }
-
   if (terminalForm && terminalInput) {
     terminalForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const raw = terminalInput.value.trim();
       if (!raw) return;
       terminalInput.value = "";
-      const cmd = raw.toLowerCase();
-
-      switch (cmd) {
-        case "help":
-          appendTerminalLine(raw, `<div>Perintah yang tersedia:</div>
-             <div>• <code>whoami</code> — Ringkasan profil &amp; spesialisasi</div>
-             <div>• <code>skills</code> — Daftar tech stack utama</div>
-             <div>• <code>projects</code> — Lompat ke bagian Proyek &amp; Riset</div>
-             <div>• <code>theme</code> — Ganti tema Dark / Light mode</div>
-             <div>• <code>contact</code> — Informasi kontak &amp; kolaborasi</div>
-             <div>• <code>clear</code> — Bersihkan layar terminal</div>`);
-          break;
-        case "whoami":
-          appendTerminalLine(raw, `<div><strong>Hidayat</strong> — Engineer lintas disiplin:</div>
-             <div>1. Cybersecurity / Bug Hunter / Red Teamer</div>
-             <div>2. DevOps &amp; DevSecOps Automation</div>
-             <div>3. Linux System Administrator</div>`);
-          break;
-        case "skills":
-          appendTerminalLine(raw, `<div><span class="term-key">[SEC]</span> Burp Suite, Nuclei, Recon, OWASP Web/API, IAM &amp; APK Red Team</div>
-             <div><span class="term-key">[OPS]</span> Docker, Kubernetes, Terraform, GitHub Actions, Semgrep, Trivy</div>
-             <div><span class="term-key">[DEV]</span> TypeScript, React, Next.js, Node.js, Go, Python, PostgreSQL</div>`);
-          break;
-        case "projects":
-          appendTerminalLine(raw, `<div class="term-success">Mengarahkan ke bagian Proyek &amp; Riset...</div>`);
-          document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-          break;
-        case "contact":
-          appendTerminalLine(raw, `<div class="term-success">Membuka bagian Kontak... Email: marlin.hidayat7780@gmail.com</div>`);
-          document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-          break;
-        case "theme":
-          toggleTheme();
-          appendTerminalLine(raw, `<div class="term-success">Tema berhasil diubah ke mode <strong>${htmlEl.getAttribute("data-theme")}</strong>.</div>`);
-          break;
-        case "clear":
-          if (terminalBody) terminalBody.replaceChildren();
-          break;
-        default:
-          appendTerminalLine(raw, `<div>Perintah <code>${escapeHtml(raw)}</code> tidak dikenali. Ketik <code>help</code> untuk daftar perintah.</div>`);
+      switch (raw.toLowerCase()) {
+        case "help": appendTerminalLine(raw, `<div>Perintah yang tersedia:</div><div>• <code>whoami</code> — Ringkasan profil &amp; spesialisasi</div><div>• <code>skills</code> — Daftar tech stack utama</div><div>• <code>projects</code> — Lompat ke bagian Proyek &amp; Riset</div><div>• <code>theme</code> — Ganti tema Dark / Light mode</div><div>• <code>contact</code> — Informasi kontak &amp; kolaborasi</div><div>• <code>clear</code> — Bersihkan layar terminal</div>`); break;
+        case "whoami": appendTerminalLine(raw, `<div><strong>Hidayat</strong> — Engineer lintas disiplin:</div><div>1. Cybersecurity / Bug Hunter / Red Teamer</div><div>2. DevOps &amp; DevSecOps Automation</div><div>3. Linux System Administrator</div>`); break;
+        case "skills": appendTerminalLine(raw, `<div><span class="term-key">[SEC]</span> Burp Suite, Nuclei, Recon, OWASP Web/API, IAM &amp; APK Red Team</div><div><span class="term-key">[OPS]</span> Docker, Kubernetes, Terraform, GitHub Actions, Semgrep, Trivy</div><div><span class="term-key">[DEV]</span> TypeScript, React, Next.js, Node.js, Go, Python, PostgreSQL</div>`); break;
+        case "projects": appendTerminalLine(raw, `<div class="term-success">Mengarahkan ke bagian Proyek &amp; Riset...</div>`); document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }); break;
+        case "contact": appendTerminalLine(raw, `<div class="term-success">Membuka bagian Kontak... Email: marlin.hidayat7780@gmail.com</div>`); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); break;
+        case "theme": toggleTheme(); appendTerminalLine(raw, `<div class="term-success">Tema berhasil diubah ke mode <strong>${htmlEl.getAttribute("data-theme")}</strong>.</div>`); break;
+        case "clear": terminalBody?.replaceChildren(); break;
+        default: appendTerminalLine(raw, `<div>Perintah <code>${escapeHtml(raw)}</code> tidak dikenali. Ketik <code>help</code> untuk daftar perintah.</div>`);
       }
     });
   }
 
-  // --------------------------------------------------------------------------
-  // 6. Skills Filter Tabs
-  // --------------------------------------------------------------------------
+  // Skills filter tabs.
   const skillTabs = document.querySelectorAll("#skillTabs .tab-btn");
   const skillCards = document.querySelectorAll("#skillsGrid .skill-card");
-  skillTabs.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      skillTabs.forEach((tab) => {
-        tab.classList.remove("active");
-        tab.setAttribute("aria-selected", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
-      const filter = btn.getAttribute("data-filter");
-      skillCards.forEach((card) => {
-        card.classList.toggle("hidden", filter !== "all" && card.getAttribute("data-category") !== filter);
-      });
-    });
-  });
+  skillTabs.forEach((btn) => btn.addEventListener("click", () => {
+    skillTabs.forEach((tab) => { tab.classList.remove("active"); tab.setAttribute("aria-selected", "false"); });
+    btn.classList.add("active");
+    btn.setAttribute("aria-selected", "true");
+    const filter = btn.getAttribute("data-filter");
+    skillCards.forEach((card) => card.classList.toggle("hidden", filter !== "all" && card.getAttribute("data-category") !== filter));
+  }));
 
-  // --------------------------------------------------------------------------
-  // 7. GitHub Projects: refresh public repositories every 30 seconds
-  // --------------------------------------------------------------------------
+  // GitHub Projects: refresh public repositories every 30 seconds.
   const projectTabsContainer = document.getElementById("projectTabs");
   const projectsGrid = document.getElementById("projectsGrid");
   const PROJECTS_REFRESH_INTERVAL = 30 * 1000;
@@ -328,15 +208,10 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   let githubProjects = [];
   let activeProjectFilter = "all";
-
   function getProjectCategory(repo) {
     const text = `${repo.name} ${repo.description || ""}`.toLowerCase();
-    if (/security|cyber|vuln|malware|yara|pentest|bug.?bounty|red.?team|scanner|wazuh|threat|auth/.test(text)) {
-      return "security";
-    }
-    if (/devops|docker|kubernetes|k8s|microservice|terraform|infrastructure|pipeline|cloud|buildflow|ansible|ci.?cd/.test(text)) {
-      return "devops";
-    }
+    if (/security|cyber|vuln|malware|yara|pentest|bug.?bounty|red.?team|scanner|wazuh|threat|auth/.test(text)) return "security";
+    if (/devops|docker|kubernetes|k8s|microservice|terraform|infrastructure|pipeline|cloud|buildflow|ansible|ci.?cd/.test(text)) return "devops";
     return "apps";
   }
 
@@ -363,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
     repoLink.target = "_blank";
     repoLink.rel = "noopener noreferrer";
     repoLink.textContent = repo.name;
+    repoLink.setAttribute("aria-label", `Buka repository GitHub ${repo.name}`);
     title.appendChild(repoLink);
 
     const description = document.createElement("p");
@@ -388,20 +264,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const tags = document.createElement("div");
     tags.className = "project-tags";
     const tagValues = [repo.language, ...(repo.topics || []).slice(0, 4)].filter(Boolean);
-    (tagValues.length ? tagValues : [repo.archived ? "Archived" : "GitHub"])
-      .forEach((value) => {
-        const tag = document.createElement("span");
-        tag.textContent = value;
-        tags.appendChild(tag);
-      });
+    (tagValues.length ? tagValues : [repo.archived ? "Archived" : "GitHub"]).forEach((value) => {
+      const tag = document.createElement("span");
+      tag.textContent = value;
+      tags.appendChild(tag);
+    });
 
-    card.append(header, title, description, metrics, tags);
+    // A visible, dedicated link on every project card points to that exact repository.
+    const githubButton = document.createElement("a");
+    githubButton.className = "btn btn-outline btn-sm project-github-link";
+    githubButton.href = repo.html_url;
+    githubButton.target = "_blank";
+    githubButton.rel = "noopener noreferrer";
+    githubButton.textContent = "Lihat project di GitHub ↗";
+    githubButton.setAttribute("aria-label", `Lihat project ${repo.name} di GitHub`);
+
+    card.append(header, title, description, metrics, tags, githubButton);
     return card;
   }
 
   function renderGithubProjects() {
     if (!projectsGrid || !projectTabsContainer) return;
-
     projectTabsContainer.replaceChildren();
     const allButton = document.createElement("button");
     allButton.className = `tab-btn${activeProjectFilter === "all" ? " active" : ""}`;
@@ -424,8 +307,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const visibleRepos = githubProjects.filter((repo) => activeProjectFilter === "all" || repo.category === activeProjectFilter);
     projectsGrid.replaceChildren(...visibleRepos.slice(0, 6).map(createProjectCard));
-
-    // Keep the 3-by-2 portfolio layout even if the account currently has fewer than six projects.
     for (let index = visibleRepos.length; index < 6; index += 1) {
       const placeholder = document.createElement("article");
       placeholder.className = "project-card project-card-placeholder";
@@ -438,13 +319,10 @@ document.addEventListener("DOMContentLoaded", () => {
       placeholder.append(title, description);
       projectsGrid.appendChild(placeholder);
     }
-
-    projectTabsContainer.querySelectorAll(".tab-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        activeProjectFilter = button.dataset.projectFilter;
-        renderGithubProjects();
-      });
-    });
+    projectTabsContainer.querySelectorAll(".tab-btn").forEach((button) => button.addEventListener("click", () => {
+      activeProjectFilter = button.dataset.projectFilter;
+      renderGithubProjects();
+    }));
   }
 
   async function fetchGithubProjects() {
@@ -458,35 +336,22 @@ document.addEventListener("DOMContentLoaded", () => {
       repos.push(...pageRepos);
       if (pageRepos.length < 100) break;
     }
-
     githubProjects = repos
       .filter((repo) => !repo.fork && !["InfraSecID.io", "InfraSecID"].includes(repo.name))
       .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
       .map((repo) => ({ ...repo, category: getProjectCategory(repo) }));
-
-    if (activeProjectFilter !== "all" && !githubProjects.some((repo) => repo.category === activeProjectFilter)) {
-      activeProjectFilter = "all";
-    }
+    if (activeProjectFilter !== "all" && !githubProjects.some((repo) => repo.category === activeProjectFilter)) activeProjectFilter = "all";
     renderGithubProjects();
   }
-
   if (projectsGrid && projectTabsContainer) {
-    fetchGithubProjects().catch((error) => {
-      console.warn("Could not load GitHub projects; keeping the existing portfolio cards.", error);
-    });
+    fetchGithubProjects().catch((error) => console.warn("Could not load GitHub projects; keeping the existing portfolio cards.", error));
     window.setInterval(() => {
-      fetchGithubProjects().catch((error) => {
-        console.warn("Could not refresh GitHub projects; keeping the last displayed projects.", error);
-      });
+      fetchGithubProjects().catch((error) => console.warn("Could not refresh GitHub projects; keeping the last displayed projects.", error));
     }, PROJECTS_REFRESH_INTERVAL);
   }
 
-  // --------------------------------------------------------------------------
-  // 8. Print / Save CV Button, Copy Email & Contact Form
-  // --------------------------------------------------------------------------
-  const downloadCvBtn = document.getElementById("downloadCvBtn");
-  downloadCvBtn?.addEventListener("click", () => window.print());
-
+  // Print / Save CV Button, Copy Email & Contact Form.
+  document.getElementById("downloadCvBtn")?.addEventListener("click", () => window.print());
   const copyEmailBtn = document.getElementById("copyEmailBtn");
   const emailAddressEl = document.getElementById("emailAddress");
   if (copyEmailBtn && emailAddressEl) {
@@ -496,18 +361,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!navigator.clipboard?.writeText) throw new Error("Clipboard API unavailable");
         await navigator.clipboard.writeText(email);
         showToast(`Email "${email}" berhasil disalin!`);
-      } catch {
-        showToast(`Salin email secara manual: ${email}`);
-      }
+      } catch { showToast(`Salin email secara manual: ${email}`); }
     });
   }
-
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
       if (!contactForm.reportValidity()) return;
-
       const name = document.getElementById("senderName")?.value.trim() || "Rekan";
       const senderEmail = document.getElementById("senderEmail")?.value.trim() || "";
       const service = document.getElementById("serviceType")?.value || "Kolaborasi";
@@ -515,9 +376,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const subject = `Permintaan kolaborasi: ${service}`;
       const body = `Nama: ${name}\nEmail: ${senderEmail}\nKebutuhan: ${service}\n\nPesan:\n${message}`;
       const mailto = `mailto:marlin.hidayat7780@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      // This static portfolio has no backend; hand off the validated message to
-      // the visitor's email client instead of claiming it was sent.
       window.location.href = mailto;
       showToast("Pesan disiapkan di aplikasi email Anda.");
     });
