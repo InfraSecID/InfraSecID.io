@@ -316,24 +316,170 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --------------------------------------------------------------------------
-  // 7. Projects Filter Tabs
+  // 7. GitHub Projects: refresh public repositories every 30 minutes
   // --------------------------------------------------------------------------
-  const projectTabs = document.querySelectorAll("#projectTabs .tab-btn");
-  const projectCards = document.querySelectorAll("#projectsGrid .project-card");
-  projectTabs.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      projectTabs.forEach((tab) => {
-        tab.classList.remove("active");
-        tab.setAttribute("aria-selected", "false");
+  const projectTabsContainer = document.getElementById("projectTabs");
+  const projectsGrid = document.getElementById("projectsGrid");
+  const PROJECTS_REFRESH_INTERVAL = 30 * 60 * 1000;
+  const PROJECT_CATEGORIES = [
+    { id: "security", label: "Security &amp; Cybersecurity" },
+    { id: "devops", label: "DevOps &amp; Infrastruktur" },
+    { id: "apps", label: "Aplikasi &amp; Tools" }
+  ];
+  let githubProjects = [];
+  let activeProjectFilter = "all";
+
+  function getProjectCategory(repo) {
+    const text = `${repo.name} ${repo.description || ""}`.toLowerCase();
+    if (/security|cyber|vuln|malware|yara|pentest|bug.?bounty|red.?team|scanner|wazuh|threat|auth/.test(text)) {
+      return "security";
+    }
+    if (/devops|docker|kubernetes|k8s|microservice|terraform|infrastructure|pipeline|cloud|buildflow|ansible|ci.?cd/.test(text)) {
+      return "devops";
+    }
+    return "apps";
+  }
+
+  function createProjectCard(repo) {
+    const category = PROJECT_CATEGORIES.find((item) => item.id === repo.category);
+    const card = document.createElement("article");
+    card.className = "project-card";
+    card.dataset.projectCategory = repo.category;
+
+    const header = document.createElement("div");
+    header.className = "project-card-header";
+    const type = document.createElement("span");
+    type.className = "project-type";
+    type.textContent = category ? category.label.replace("&amp;", "&") : "GitHub Project";
+    const status = document.createElement("span");
+    status.className = `project-status ${repo.archived ? "status-research" : "status-live"}`;
+    status.textContent = repo.archived ? "Archived" : "GitHub Project";
+    header.append(type, status);
+
+    const title = document.createElement("h3");
+    title.className = "project-title";
+    const repoLink = document.createElement("a");
+    repoLink.href = repo.html_url;
+    repoLink.target = "_blank";
+    repoLink.rel = "noopener noreferrer";
+    repoLink.textContent = repo.name;
+    title.appendChild(repoLink);
+
+    const description = document.createElement("p");
+    description.className = "project-description";
+    description.textContent = repo.description || "Lihat repository GitHub ini untuk detail proyek dan dokumentasi.";
+
+    const metrics = document.createElement("div");
+    metrics.className = "project-metrics";
+    const languageMetric = document.createElement("div");
+    const language = document.createElement("strong");
+    language.textContent = repo.language || "Repository";
+    const languageLabel = document.createElement("span");
+    languageLabel.textContent = "Bahasa utama";
+    languageMetric.append(language, languageLabel);
+    const updatedMetric = document.createElement("div");
+    const updatedValue = document.createElement("strong");
+    updatedValue.textContent = new Date(repo.updated_at).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
+    const updatedLabel = document.createElement("span");
+    updatedLabel.textContent = "Terakhir diperbarui";
+    updatedMetric.append(updatedValue, updatedLabel);
+    metrics.append(languageMetric, updatedMetric);
+
+    const tags = document.createElement("div");
+    tags.className = "project-tags";
+    const tagValues = [repo.language, ...(repo.topics || []).slice(0, 4)].filter(Boolean);
+    (tagValues.length ? tagValues : [repo.archived ? "Archived" : "GitHub"])
+      .forEach((value) => {
+        const tag = document.createElement("span");
+        tag.textContent = value;
+        tags.appendChild(tag);
       });
-      btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
-      const filter = btn.getAttribute("data-project-filter");
-      projectCards.forEach((card) => {
-        card.classList.toggle("hidden", filter !== "all" && card.getAttribute("data-project-category") !== filter);
+
+    card.append(header, title, description, metrics, tags);
+    return card;
+  }
+
+  function renderGithubProjects() {
+    if (!projectsGrid || !projectTabsContainer) return;
+
+    projectTabsContainer.replaceChildren();
+    const allButton = document.createElement("button");
+    allButton.className = `tab-btn${activeProjectFilter === "all" ? " active" : ""}`;
+    allButton.dataset.projectFilter = "all";
+    allButton.setAttribute("role", "tab");
+    allButton.setAttribute("aria-selected", String(activeProjectFilter === "all"));
+    allButton.textContent = "Semua Proyek";
+    projectTabsContainer.appendChild(allButton);
+
+    const categoriesInRepos = new Set(githubProjects.map((repo) => repo.category));
+    PROJECT_CATEGORIES.filter((category) => categoriesInRepos.has(category.id)).forEach((category) => {
+      const button = document.createElement("button");
+      button.className = `tab-btn${activeProjectFilter === category.id ? " active" : ""}`;
+      button.dataset.projectFilter = category.id;
+      button.setAttribute("role", "tab");
+      button.setAttribute("aria-selected", String(activeProjectFilter === category.id));
+      button.textContent = category.label.replace("&amp;", "&");
+      projectTabsContainer.appendChild(button);
+    });
+
+    const visibleRepos = githubProjects.filter((repo) => activeProjectFilter === "all" || repo.category === activeProjectFilter);
+    projectsGrid.replaceChildren(...visibleRepos.slice(0, 6).map(createProjectCard));
+
+    // Keep the 3-by-2 portfolio layout even if the account currently has fewer than six projects.
+    for (let index = visibleRepos.length; index < 6; index += 1) {
+      const placeholder = document.createElement("article");
+      placeholder.className = "project-card project-card-placeholder";
+      const title = document.createElement("h3");
+      title.className = "project-title";
+      title.textContent = "Proyek berikutnya segera hadir";
+      const description = document.createElement("p");
+      description.className = "project-description";
+      description.textContent = "Repository publik baru dari GitHub akan tampil di sini setelah diperbarui.";
+      placeholder.append(title, description);
+      projectsGrid.appendChild(placeholder);
+    }
+
+    projectTabsContainer.querySelectorAll(".tab-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        activeProjectFilter = button.dataset.projectFilter;
+        renderGithubProjects();
       });
     });
-  });
+  }
+
+  async function fetchGithubProjects() {
+    const repos = [];
+    for (let page = 1; page <= 10; page += 1) {
+      const response = await fetch(`https://api.github.com/users/InfraSecID/repos?type=owner&sort=updated&per_page=100&page=${page}`, {
+        headers: { Accept: "application/vnd.github+json" }
+      });
+      if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+      const pageRepos = await response.json();
+      repos.push(...pageRepos);
+      if (pageRepos.length < 100) break;
+    }
+
+    githubProjects = repos
+      .filter((repo) => !repo.fork && !["InfraSecID.io", "InfraSecID"].includes(repo.name))
+      .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+      .map((repo) => ({ ...repo, category: getProjectCategory(repo) }));
+
+    if (activeProjectFilter !== "all" && !githubProjects.some((repo) => repo.category === activeProjectFilter)) {
+      activeProjectFilter = "all";
+    }
+    renderGithubProjects();
+  }
+
+  if (projectsGrid && projectTabsContainer) {
+    fetchGithubProjects().catch((error) => {
+      console.warn("Could not load GitHub projects; keeping the existing portfolio cards.", error);
+    });
+    window.setInterval(() => {
+      fetchGithubProjects().catch((error) => {
+        console.warn("Could not refresh GitHub projects; keeping the last displayed projects.", error);
+      });
+    }, PROJECTS_REFRESH_INTERVAL);
+  }
 
   // --------------------------------------------------------------------------
   // 8. Print / Save CV Button, Copy Email & Contact Form
