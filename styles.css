@@ -201,6 +201,10 @@ ul {
   gap: 0.85rem;
 }
 
+.nav-mobile-cta {
+  display: none;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -306,7 +310,7 @@ ul {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
   gap: 3rem;
   align-items: center;
 }
@@ -705,7 +709,7 @@ ul {
    ========================================================================== */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 1.25rem;
 }
 
@@ -770,7 +774,7 @@ ul {
    ========================================================================== */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
   gap: 1.5rem;
 }
 
@@ -1152,18 +1156,219 @@ ul {
     right: 0;
     background: var(--bg-secondary);
     flex-direction: column;
-    padding: 1.5rem;
+    align-items: stretch;
+    padding: 1rem 1.5rem 1.5rem;
     gap: 1.1rem;
     border-bottom: 1px solid var(--border-color);
     display: none;
+    box-shadow: var(--shadow-card);
   }
 
   .nav-links.open {
     display: flex;
   }
 
+  .nav-link {
+    padding: 0.35rem 0;
+  }
+
+  .nav-mobile-cta {
+    display: inline-flex;
+    align-self: flex-start;
+  }
+
+  .nav-hire-link {
+    display: none;
+  }
+
   .mobile-menu-btn {
     display: flex;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    scroll-padding-top: 68px;
+  }
+
+  .container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .nav-container {
+    height: 66px;
+  }
+
+  .nav-links {
+    top: 66px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .brand {
+    font-size: 1.05rem;
+  }
+
+  .nav-actions {
+    gap: 0.5rem;
+  }
+
+  .theme-toggle {
+    padding: 0.45rem;
+  }
+
+  .theme-label {
+    display: none;
+  }
+
+  .section {
+    padding: 3.75rem 0;
+  }
+
+  .hero {
+    padding-top: 2.75rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .hero-grid {
+    gap: 2rem;
+  }
+
+  .status-badge {
+    max-width: 100%;
+    align-items: flex-start;
+    border-radius: 0.75rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .hero-role-wrapper {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stat-item {
+    flex: 1 1 40%;
+  }
+
+  .terminal-header {
+    gap: 0.5rem;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .terminal-title {
+    min-width: 0;
+    font-size: 0.65rem;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .terminal-hint {
+    white-space: nowrap;
+    font-size: 0.66rem;
+  }
+
+  .terminal-body {
+    padding: 0.85rem;
+    font-size: 0.75rem;
+    overflow-wrap: anywhere;
+  }
+
+  .terminal-input-row {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .terminal-input-row .term-prompt {
+    font-size: 0.7rem;
+  }
+
+  .terminal-input {
+    min-width: 0;
+    font-size: 0.75rem;
+  }
+
+  .pillars-grid,
+  .skills-grid,
+  .projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .filter-tabs {
+    gap: 0.5rem;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .timeline {
+    padding-left: 1.25rem;
+  }
+
+  .timeline-marker {
+    left: -1.67rem;
+  }
+
+  .timeline-content,
+  .project-card,
+  .pillar-card {
+    padding: 1.15rem;
+  }
+
+  .contact-card {
+    padding: 1.25rem;
+    gap: 2rem;
+  }
+
+  .contact-item > div:last-child {
+    min-width: 0;
+  }
+
+  .contact-value-row {
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    overflow-wrap: anywhere;
+    font-size: 0.8rem;
+  }
+
+  .contact-form {
+    min-width: 0;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toast {
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    text-align: center;
   }
 }
 

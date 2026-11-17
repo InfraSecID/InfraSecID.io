@@ -81,13 +81,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // --------------------------------------------------------------------------
   if (mobileMenuBtn && navLinks) {
     mobileMenuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
+      const isOpen = navLinks.classList.toggle("open");
+      mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
+      mobileMenuBtn.setAttribute("aria-label", isOpen ? "Tutup Menu" : "Buka Menu");
     });
+
+    function closeMobileMenu() {
+      navLinks.classList.remove("open");
+      mobileMenuBtn.setAttribute("aria-expanded", "false");
+      mobileMenuBtn.setAttribute("aria-label", "Buka Menu");
+    }
 
     navLinks.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
+        closeMobileMenu();
       });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileMenu();
     });
   }
 
@@ -214,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
 
         case "contact":
-          appendTerminalLine(raw, `<div class="term-success">Membuka bagian Kontak... Email: hidayat@secops.dev</div>`);
+          appendTerminalLine(raw, `<div class="term-success">Membuka bagian Kontak... Email: marlin.hidayat7780@gmail.com</div>`);
           document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
           break;
 
