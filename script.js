@@ -316,11 +316,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --------------------------------------------------------------------------
-  // 7. GitHub Projects: refresh public repositories every 30 minutes
+  // 7. GitHub Projects: refresh public repositories every 30 seconds
   // --------------------------------------------------------------------------
   const projectTabsContainer = document.getElementById("projectTabs");
   const projectsGrid = document.getElementById("projectsGrid");
-  const PROJECTS_REFRESH_INTERVAL = 30 * 60 * 1000;
+  const PROJECTS_REFRESH_INTERVAL = 30 * 1000;
   const PROJECT_CATEGORIES = [
     { id: "security", label: "Security &amp; Cybersecurity" },
     { id: "devops", label: "DevOps &amp; Infrastruktur" },
